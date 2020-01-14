@@ -1,3 +1,9 @@
+/*
+    Problem Statement:
+    1. What is the perimeter of the shape made from the file datatest.txt whose contents are shown below (just give to two decimal places)?
+    2. What is the average length of a side in the shape made from the file datatest.txt whose contents are shown below (just give to two decimal places)?
+    3. What is the longest side in the shape made from the file datatest.txt whose contents are shown below (just give to two decimal places)?
+*/
 import java.util.*;
 import java.io.*;
 class Point
