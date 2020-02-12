@@ -30,7 +30,7 @@ public class MainApp extends Application {
 	
 	// called at start of application
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws Exception {
 		
 		this.primaryStage = primaryStage;
 		
@@ -51,6 +51,7 @@ public class MainApp extends Application {
           
 		} catch(Exception e) {
 			e.printStackTrace();
+			throw new Exception("fxml file cannot be loaded");
 		}
 		
 		showTextProApp();
@@ -58,8 +59,9 @@ public class MainApp extends Application {
 	
 	/**
      * Shows the main TextApplication scene
+	 * @throws Exception 
      */
-    public void showTextProApp() {
+    public void showTextProApp() throws Exception {
         try {
             // Load the fxml file and set into the center of the main layout
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/TextAppLayout.fxml"));
@@ -74,6 +76,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             // Exception gets thrown if the fxml file could not be loaded
             e.printStackTrace();
+            throw new Exception("fxml file cannot be loaded");
         }
     }
     

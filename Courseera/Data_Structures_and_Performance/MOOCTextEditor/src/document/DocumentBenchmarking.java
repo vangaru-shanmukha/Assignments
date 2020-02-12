@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 public class DocumentBenchmarking {
 
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String [] args) {
 
 	    // Run each test more than once to get bigger numbers and less noise.
@@ -42,7 +43,29 @@ public class DocumentBenchmarking {
 		{
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
-			
+			System.out.print(numToCheck + "\t");
+			String string = getStringFromFile(textfile,numToCheck);
+			long basicStartTime = System.nanoTime();
+			int trial = 0;
+			while(trial < trials)
+			{
+				BasicDocument basicDocument = new BasicDocument(string);
+				basicDocument.getFleschScore();
+				trial = trial + 1;
+			}
+			long basicEndTime = System.nanoTime();
+			double basicEstTime = (basicEndTime - basicStartTime) / 1000000000.0 / trials;
+			System.out.format("%.11f\t" , basicEstTime);
+			long efficientStartTime = System.nanoTime();
+			while(trial > 0)
+			{
+				EfficientDocument efficientDocument = new EfficientDocument(string);
+				efficientDocument.getFleschScore();
+				trial = trial - 1;
+			}
+			long efficientEndTime = System.nanoTime();
+			double efficientEstTime = (efficientEndTime - efficientStartTime) / 1000000000.0 / trials;
+			System.out.format("%.11f\n" , efficientEstTime);
 			/* Each time through this loop you should:
 			 * 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
 			 * 2. Read numToCheck characters from the file into a String
