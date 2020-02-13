@@ -59,6 +59,7 @@ public class MyLinkedListTester {
 			fail("Check out of bounds");
 		}
 		catch (IndexOutOfBoundsException e) {
+			System.out.println("hello");
 			
 		}
 		
@@ -109,12 +110,24 @@ public class MyLinkedListTester {
 	@Test
 	public void testRemove()
 	{
+		//checking the boundary conditions
+		try {
+			shortList.remove(-1);
+			fail("check the boundary conditions");
+		}
+		catch(IndexOutOfBoundsException e) {
+			
+		}
+		//checking for the removal of the data;
 		int a = list1.remove(0);
 		assertEquals("Remove: check a is correct ", 65, a);
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
 		assertEquals("Remove: check size is correct ", 2, list1.size());
 		
-		// TODO: Add more tests here
+		String b = shortList.remove(1);
+		assertEquals("Remove: check b is correct ", "B", b);
+		assertEquals("Remove: check element 0 is correct ", "A", shortList.get(0));
+		assertEquals("Remove: check size is correct ", 1, shortList.size());
 	}
 	
 	/** Test adding an element into the end of the list, specifically
@@ -123,8 +136,18 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
-		
+        // checking for the addition of null element
+		try {
+			shortList.add(null);
+			fail("Check the add condition");
+		}
+		catch(NullPointerException e) {
+			
+		}
+		// checking for the change in the size of the list  
+		assertEquals("Additionn is not done properly",true,shortList.add("C"));
+		assertEquals("Returning wrong value","C",shortList.get(2));
+		assertEquals("Addition is not done properly", 3, shortList.size());
 	}
 
 	
@@ -132,7 +155,8 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
-		// TODO: implement this test
+		// checking for the size
+		assertEquals("Returning wrong size",2,shortList.size());
 	}
 
 	
@@ -140,23 +164,58 @@ public class MyLinkedListTester {
 	/** Test adding an element into the list at a specified index,
 	 * specifically:
 	 * public void add(int index, E element)
+	 * @param <E>
 	 * */
 	@Test
-	public void testAddAtIndex()
+	public <E> void testAddAtIndex()
 	{
-        // TODO: implement this test
-		
+        // checking for index out of bounds
+		try {
+			shortList.add(3,"1");
+			fail("check index of bounds condition");
+		}
+		catch(IndexOutOfBoundsException e) {
+			
+		}
+		// checking for inserting null elements
+		try {
+			shortList.add(0,null);
+			fail("check for insertion of null elements");
+		}
+		catch(NullPointerException e) {
+			
+		}
+		// checking for the correct insertion
+		shortList.add(2,"C");
+		assertEquals("insertion not done properly",3,shortList.size());
+		assertEquals("returning wrong element","C",shortList.get(2));
 	}
 	
 	/** Test setting an element in the list */
 	@Test
 	public void testSet()
 	{
-	    // TODO: implement this test
-	    
+	    // checking for null elements
+		try {
+			shortList.add(0,null);
+			fail("check for insertion of null elements");
+		}
+		catch(NullPointerException e) {
+			
+		}
+		// checking for index out of bounds 
+		try {
+			shortList.add(3,"1");
+			fail("check index of bounds condition");
+		}
+		catch(IndexOutOfBoundsException e) {
+			
+		}
+		// checking for correct values
+		assertEquals("Wrong value returned","B",shortList.set(1, "C"));
+		assertEquals("check return is correct ", "C", shortList.set(1, "C"));
+		assertEquals("check value is correct ", "C", shortList.get(1));
+		assertEquals("check size is correct", 2, shortList.size());
 	}
-	
-	
-	// TODO: Optionally add more test methods.
 	
 }
