@@ -1,9 +1,8 @@
 package spelling;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 /** 
@@ -39,7 +38,22 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 */
 	public boolean addWord(String word)
 	{
-	    //TODO: Implement this method.
+		word = word.toLowerCase();
+		TrieNode head = root;
+		for(int i=0;i<word.length();i++)
+		{
+			char c = word.charAt(i);
+			if(head.getValidNextCharacters().contains(c))
+				head = head.getChild(c);
+			else
+				head = head.insert(c);
+		}
+		if(!head.endsWord())
+		{
+			head.setEndsWord(true);
+			size++;
+			return true;
+		}
 	    return false;
 	}
 	
@@ -49,8 +63,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 */
 	public int size()
 	{
-	    //TODO: Implement this method
-	    return 0;
+	    return size;
 	}
 	
 	
@@ -59,7 +72,20 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	@Override
 	public boolean isWord(String s) 
 	{
-	    // TODO: Implement this method
+		int i=0;
+		s = s.toLowerCase();
+		TrieNode node = root;
+		while(i < s.length())
+		{
+			char c = s.charAt(i);
+			if(node.getValidNextCharacters().contains(c))
+				node = node.getChild(c);
+			else
+				return false;
+			i++;
+		}
+		if(node.endsWord())
+			return true;
 		return false;
 	}
 
@@ -86,22 +112,35 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
      */@Override
      public List<String> predictCompletions(String prefix, int numCompletions) 
      {
-    	 // TODO: Implement this method
-    	 // This method should implement the following algorithm:
-    	 // 1. Find the stem in the trie.  If the stem does not appear in the trie, return an
-    	 //    empty list
-    	 // 2. Once the stem is found, perform a breadth first search to generate completions
-    	 //    using the following algorithm:
-    	 //    Create a queue (LinkedList) and add the node that completes the stem to the back
-    	 //       of the list.
-    	 //    Create a list of completions to return (initially empty)
-    	 //    While the queue is not empty and you don't have enough completions:
-    	 //       remove the first Node from the queue
-    	 //       If it is a word, add it to the completions list
-    	 //       Add all of its child nodes to the back of the queue
-    	 // Return the list of completions
-    	 
-         return null;
+    	 List<String> predictions = new LinkedList<String>();
+    	 int i=0;
+    	 prefix = prefix.toLowerCase();
+ 		 TrieNode node = root;
+ 		 while(i < prefix.length())
+ 		 {
+ 			 char c = prefix.charAt(i);
+ 			 if(node.getValidNextCharacters().contains(c))
+ 				 node = node.getChild(c);
+ 			 else
+ 				 return predictions;
+ 			 i++;
+ 		 }
+ 		 if(node.endsWord())
+ 			 predictions.add(node.getText());
+ 		 Queue<TrieNode> queue = new LinkedList<TrieNode>();
+ 		 Set<Character> characters = node.getValidNextCharacters();
+		 for(Character character : characters)
+			 queue.add(node.getChild(character));
+ 		 while(!queue.isEmpty() && predictions.size() < numCompletions)
+ 		 {
+ 			 TrieNode word = queue.poll();
+ 			 if(word.endsWord())
+ 				 predictions.add(word.getText());
+ 			 characters = word.getValidNextCharacters();
+ 			 for(Character character : characters)
+ 				 queue.add(word.getChild(character));
+ 		 }
+ 		 return predictions;
      }
 
  	// For debugging
