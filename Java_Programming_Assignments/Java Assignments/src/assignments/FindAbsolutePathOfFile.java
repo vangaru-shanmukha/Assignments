@@ -1,4 +1,4 @@
-/*
+/**
  * Create a java program to search through the home directory and look for files that match a regular expression. 
  * The program should be able to take inputs repeatedly and should print out the full absolute path of the matching files found.
  */
@@ -19,11 +19,15 @@ public class FindAbsolutePathOfFile {
 	 * @return true if the file name matches with fileNameRegex else false
 	 */
 	public static boolean isMatched(File file, String fileNameRegex) {
+		boolean result = false;
 		Pattern pattern = Pattern.compile(fileNameRegex);
 		Matcher m = pattern.matcher(file.getName());
-		if (m.find())
-			return true;
-		return false;
+		if (m.find()) {
+			result = true;
+		} else {
+			result = false;
+		}
+		return result;
 	}
 
 	/**
@@ -41,9 +45,10 @@ public class FindAbsolutePathOfFile {
 			// if the file name starts with '.' we ignore them
 			if (!f.getName().startsWith(".")) {
 				// if the file name does not start with '.' and is a directory
-				if (f.isDirectory())
+				if (f.isDirectory()) {
 					// making the recursive call to findPath()
 					findPath(f, fileNameRegex);
+				}
 				// if the file name does not start with '.' and is not a directory
 				else {
 					// checking whether the file name matches the entered regular expression
