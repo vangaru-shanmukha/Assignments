@@ -20,6 +20,8 @@ public class TimeAndSpaceComplexity {
 	public static boolean isHavingAllLetters(String text) {
 		boolean result = false;
 		int numOfCharacters = 0;
+		// replacing any non-word characters with a empty character
+		text = text.replaceAll("\\W+", "");
 		// converting the text to lower case
 		text = text.toLowerCase();
 		// creating an array of size 26 to keep track of the alphabets that are visited
