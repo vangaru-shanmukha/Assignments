@@ -63,7 +63,7 @@ public class NearbyWords implements SpellingSuggest {
 						(!wordsOnly||dict.isWord(sb.toString())) &&
 						!s.equals(sb.toString())) {
 					currentList.add(sb.toString());
-					if(currentList.size() < THRESHOLD)
+					if(currentList.size() >= THRESHOLD)
 						return;
 				}
 			}
@@ -91,7 +91,7 @@ public class NearbyWords implements SpellingSuggest {
 						(!wordsOnly||dict.isWord(sb.toString())) &&
 						!s.equals(sb.toString())) {
 					currentList.add(sb.toString());
-					if(currentList.size() < THRESHOLD)
+					if(currentList.size() >= THRESHOLD)
 						return;
 				}
 			}
@@ -119,7 +119,7 @@ public class NearbyWords implements SpellingSuggest {
 						(!wordsOnly||dict.isWord(sb.toString())) &&
 						!s.equals(sb.toString())) {
 					currentList.add(sb.toString());
-					if(currentList.size() < THRESHOLD)
+					if(currentList.size() >= THRESHOLD)
 						return;
 				}
 			}
@@ -145,7 +145,7 @@ public class NearbyWords implements SpellingSuggest {
 		// insert first node
 		queue.add(word);
 		visited.add(word);
-		while(queue.isEmpty()==false && retList.size() < numSuggestions)
+		while(!queue.isEmpty() && retList.size() < numSuggestions)
 		{
 			String currWord = queue.remove(0);
 			List<String> neighbors = distanceOne(currWord,true);
