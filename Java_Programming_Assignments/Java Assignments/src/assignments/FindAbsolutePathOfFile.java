@@ -24,8 +24,6 @@ public class FindAbsolutePathOfFile {
 		Matcher m = pattern.matcher(file.getName());
 		if (m.find()) {
 			result = true;
-		} else {
-			result = false;
 		}
 		return result;
 	}

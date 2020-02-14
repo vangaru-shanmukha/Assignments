@@ -1,0 +1,41 @@
+package assignments;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CharacterOccurrencesInaFile {
+
+	public static Map<Character,Integer> getOccurrences(FileReader file) throws IOException
+	{
+		Map<Character,Integer> occurrences = new HashMap<Character,Integer>();
+		int character = -1;
+		while((character=file.read())!=-1)
+		{
+			if(occurrences.containsKey((char)(character)))
+			{
+				occurrences.put((char)(character), occurrences.get((char)(character))+1);
+			}
+			else
+			{
+				occurrences.put((char)(character), 1);
+			}
+		}
+		return occurrences;
+	}
+	public static void printOccurrences(Map<Character,Integer> occurrences)
+	{
+		for(Map.Entry<Character, Integer> map : occurrences.entrySet())
+		{
+			System.out.println("Character " + map.getKey() + " occurred " + map.getValue() + " times.");
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		FileReader file = new FileReader("test.txt");
+		Map<Character,Integer> occurrences = getOccurrences(file);
+		printOccurrences(occurrences);
+	}
+
+}
+

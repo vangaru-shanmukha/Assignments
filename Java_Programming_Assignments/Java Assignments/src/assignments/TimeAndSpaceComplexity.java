@@ -37,9 +37,7 @@ public class TimeAndSpaceComplexity {
 		// if numOfCharacters is equal to 26 we make result true else false
 		if (numOfCharacters == 26) {
 			result = true;
-		} else {
-			result = false;
-		}
+		} 
 		return result;
 	}
 

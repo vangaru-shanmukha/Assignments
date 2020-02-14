@@ -1,0 +1,57 @@
+Character 	 occurred 61 times.
+Character 
+ occurred 41 times.
+Character   occurred 58 times.
+Character ! occurred 1 times.
+Character " occurred 8 times.
+Character ( occurred 28 times.
+Character ) occurred 28 times.
+Character + occurred 5 times.
+Character , occurred 8 times.
+Character - occurred 2 times.
+Character . occurred 21 times.
+Character 1 occurred 4 times.
+Character : occurred 1 times.
+Character ; occurred 14 times.
+Character < occurred 6 times.
+Character = occurred 6 times.
+Character > occurred 6 times.
+Character C occurred 8 times.
+Character E occurred 4 times.
+Character F occurred 5 times.
+Character H occurred 2 times.
+Character I occurred 10 times.
+Character K occurred 2 times.
+Character M occurred 8 times.
+Character O occurred 8 times.
+Character R occurred 4 times.
+Character S occurred 3 times.
+Character V occurred 1 times.
+Character [ occurred 1 times.
+Character ] occurred 1 times.
+Character a occurred 70 times.
+Character b occurred 4 times.
+Character c occurred 84 times.
+Character d occurred 8 times.
+Character e occurred 99 times.
+Character f occurred 6 times.
+Character g occurred 15 times.
+Character h occurred 23 times.
+Character i occurred 40 times.
+Character j occurred 4 times.
+Character k occurred 1 times.
+Character l occurred 20 times.
+Character m occurred 11 times.
+Character n occurred 41 times.
+Character o occurred 27 times.
+Character p occurred 28 times.
+Character r occurred 91 times.
+Character s occurred 33 times.
+Character t occurred 62 times.
+Character u occurred 27 times.
+Character v occurred 6 times.
+Character w occurred 5 times.
+Character x occurred 4 times.
+Character y occurred 5 times.
+Character { occurred 8 times.
+Character } occurred 8 times.
