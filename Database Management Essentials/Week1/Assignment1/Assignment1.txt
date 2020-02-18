@@ -1,0 +1,85 @@
+1. Write a CREATE TABLE statement for the Customer table. Choose data types appropriate for the DBMS used in your course. All columns are required (not null).
+
+Command:
+
+Create table Customer(
+	CustNo varchar(10) primary key not null,
+	CustName varchar(22) not null,
+	Address varhcar(22) not null,
+	Internal char(1) not null,
+	Contact varchar(22) not null,
+	Phone varchar(7) not null,
+	City varchar(22) not null,
+	State char(2) not null,
+	Zip char(5) not null);
+
+2. Write a CREATE TABLE statement for the Facility table. Choose data types appropriate for the DBMS used in your course. All columns are required (not null).
+
+Command:
+
+Create table Facility(
+	FacNo varchar(4) primary key not null,
+	Facname varchar(22) not null);
+
+3. Write a CREATE TABLE statement for the Location table. Choose data types appropriate for the DBMS used in your course. LocName column is required (not null).
+
+Command:
+
+Create table Location(
+	LocNo varchar(4) primary key not null,
+	FacNo varchar(4),
+	LocName varchar(22) not null);
+
+4. Identify the foreign key(s) and 1-M relationship(s) among the Customer, Facility, and Location tables. For each relationship, identify the parent table and the child table.
+
+Answer:
+
+There is one 1-M relationships: Facility(FacNo) - Location(FacNo)
+
+
+5. Extend your CREATE TABLE statement from problem (3) with referential integrity constraints.
+
+Command:
+
+Alter table Location
+	add foreign key(FacNo) references Facility(FacNo);
+
+6. From examination of the sample data and your common understanding of scheduling and operation of events, are null values allowed for the foreign key in the Location table?  Why or why not? Extend the CREATE TABLE statement in problem (5) to enforce the null value restrictions if any.
+
+Answer:
+
+From the schema we can say that FacNo cannot have null values. We add the null constraint to that column as follows.
+
+Alter table Location change FacNo FacNo varchar(4) not null;
+
+7. Extend your CREATE TABLE statement for the Facility table (problem 2) with a unique constraint for FacName. Use an external named constraint clause for the unique constraint.
+
+Command:
+
+Alter table Facility change FacName FacName varchar(22) unique;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
