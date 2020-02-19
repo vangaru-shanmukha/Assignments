@@ -1,0 +1,83 @@
+1. List the city, state, and zip codes in the customer table.  Your result should not have duplicates. (Hint: The DISTINCT keyword eliminates duplicates.)
+
+select distinct City,State,Zip from Customer;
++------------+-------+-------+
+| City       | State | Zip   |
++------------+-------+-------+
+| Boulder    | CO    | 80309 |
+| Louisville | CO    | 80027 |
++------------+-------+-------+
+2 rows in set (0.00 sec)
+
+2. List the name, department, phone number, and email address of employees with a phone number beginning with “3-”.
+
+select EmpName,Department,Phone,Email from Employee where Phone like '3-%';
++--------------------+----------------+--------+--------------------+
+| EmpName            | Department     | Phone  | Email              |
++--------------------+----------------+--------+--------------------+
+| Chuck Coordinator  | Administrator  | 3-1111 | chuck@colorado.edu |
+| Sally Supervisor   | Planning       | 3-2222 | sally@colorado.edu |
+| Alan Administrator | Administration | 3-3333 | alan@colorado.edu  |
++--------------------+----------------+--------+--------------------+
+3 rows in set (0.00 sec)
+
+3. List all columns of the resource table with a rate between $10 and $20. Sort the result by rate.
+
+select * from ResourceTbl where Rate between 10 and 20 order by Rate;
++-------+--------------+-------+
+| ResNo | ResName      | Rate  |
++-------+--------------+-------+
+| R100  | attendant    | 10.00 |
+| R102  | usher        | 10.00 |
+| R105  | food service | 10.00 |
+| R101  | police       | 15.00 |
+| R104  | janitor      | 15.00 |
+| R103  | nurse        | 20.00 |
++-------+--------------+-------+
+6 rows in set (0.00 sec)
+
+4. List the event requests with a status of “Approved” or “Denied” and an authorized date in July 2018. Include the event number, authorization date, and status in the output. (Hint: see the examples in Module 4 for date constants in Oracle and MySQL.)
+
+select EventNo,DateAuth,Status from EventRequest where (Status = 'Approved' or Status = 'Denied') and DateAuth between '2018-07-01' and '2018-07-31';
++---------+------------+----------+
+| EventNo | DateAuth   | Status   |
++---------+------------+----------+
+| E102    | 2018-07-31 | Approved |
+| E104    | 2018-07-31 | Approved |
+| E106    | 2018-07-31 | Approved |
+| E107    | 2018-07-31 | Denied   |
++---------+------------+----------+
+4 rows in set (0.00 sec)
+
+
+5. List the location number and name of locations that are part of the “Basketball arena”.  Your WHERE clause should not have a condition involving the facility number compared to a constant (“F101”). Instead, you should use a condition on the FacName column for the value of “Basketball arena”.
+
+select LocNo,LocName from Location,Facility where Location.FacNo = Facility.FacNo and FacName = 'Basketball arena';
++-------+-------------+
+| LocNo | LocName     |
++-------+-------------+
+| L103  | Locker room |
+| L105  | Gate        |
++-------+-------------+
+2 rows in set (0.00 sec)
+
+
+6. For each event plan, list the plan number, count of the event plan lines, and sum of the number of resources assigned.  For example, plan number “P100” has 4 lines and 7 resources assigned.  You only need to consider event plans that have at least one line.
+
+select PlanNo,count(*),sum(NumberFId) as 'Number of resources' from EventPlanLine group by PlanNo having count(*)>1;
++--------+----------+---------------------+
+| PlanNo | count(*) | Number of resources |
++--------+----------+---------------------+
+| P100   |        4 |                   7 |
+| P101   |        3 |                   8 |
+| P102   |        3 |                   8 |
+| P103   |        3 |                   8 |
+| P104   |        2 |                   8 |
+| P105   |        2 |                   8 |
+| P85    |        3 |                  10 |
+| P95    |        5 |                  16 |
++--------+----------+---------------------+
+8 rows in set (0.00 sec)
+
+
+
