@@ -1,0 +1,9 @@
+Design a database schema for an e-commerce app using the E-R model and design tables accordingly using the relationship model. The necessary information is given below :
+
+Entities : Supplier, Customer, Items, Order
+Every item should correspond to a supplier. One supplier can have more than one items.
+A customer can have one order at the same time. One order can have multiple items from multiple brands.
+
+Assume columns accordingly and mention primary keys, weak and strong entities.
+
+Submit a text entry or file upload or a github url pointing the code.
