@@ -1,0 +1,43 @@
+Customer:
+- primary key (Id)
+- foreign key (TypeId) references CustomerType(TypeId)
+- strong entity as can be uniquely identified by its own attribute
+
+CustomerType:
+- primary key (TypeId)
+- strong entity as can be uniquely identified by its own attribute
+- It has one-to-many relationship with the Customer (i.e each type contains zero or more customers)
+
+Hotel:
+- primary key (Id)
+- strong entity as can be uniquely identified by its own attribute
+- It has one-to-many identifying realtionship with the Room (i.e each Hotel contain one or more rooms)
+
+Room:
+- primary key (RoomNo)
+- primary key (HotelId)
+- foreign key (RoomTypeId)
+- weak entity as it uses the HotelId of Hotel entity to uniquely identify itself.
+
+RoomType:
+- primary key (Id)
+- It has one-to-many relationship with Room entity (i.e each room type contains zero or more rooms)
+
+Booking:
+- primary key (Id)
+- foreign key (CustomerId) references Customer (Id)
+- foreign key (HotelId) references Hotel (Id)
+-  It contains two composite unique key constraints.
+	1. unique key(CustomerId,HotelId)
+	2. unique key (HotelId,TimeOfBooking)
+   To make sure that each customer will make booking from only one hotel at a time.
+
+Booking_Room:
+- primary key (BookingId)
+- primary key (RoomNo)
+- primary key (HotelId)
+- foreign key (BookingId) references Booking (Id)
+- foreign key (RoomNo) references Room (RoomNo)
+- foreign key (HotelId) references Room (HotelId)
+- weak entity as it uses the attributes of other entities to uniquely identify itself.
+- This table is constructed to avoid many-to-many relationship between Booking and Room i.e each room can have many bookings and each booking can have many rooms

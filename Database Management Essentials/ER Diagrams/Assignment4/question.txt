@@ -1,0 +1,11 @@
+Design a database schema for railway ticket booking using the E-R model and design tables accordingly using the relationship model. The necessary information is given below :
+
+Entities : Train, Ticket, Customer
+Ticket can be reserved or unreserved.
+Each reserved ticket must correspond to a train and a customer.
+Each unreserved ticket must correspond to a customer.
+A customer cannot be in two trains at the same time.
+Assume columns accordingly and mention primary keys, weak and strong entities.
+
+Submit a github url pointing the code or a file upload or text entry.
+

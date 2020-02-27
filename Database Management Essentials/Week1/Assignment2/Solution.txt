@@ -1,0 +1,153 @@
+// Customer table creation
+CREATE TABLE Customer 
+    ->  (CustNo VARCHAR(8) NOT NULL, 
+    ->   CustName VARCHAR(30) NOT NULL, 
+    ->   Address VARCHAR(50) NOT NULL, 
+    ->   Internal CHAR(1) NOT NULL, 
+    ->   Contact VARCHAR(35) NOT NULL, 
+    ->   Phone VARCHAR(11) NOT NULL, 
+    ->   City VARCHAR(30) NOT NULL,
+    ->   State VARCHAR(2) NOT NULL, 
+    ->   Zip VARCHAR(10) NOT NULL,
+    ->   CONSTRAINT PK_CUSTOMER PRIMARY KEY (CustNo) ) ;
+
+desc Customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| CustNo   | varchar(8)  | NO   | PRI | NULL    |       |
+| CustName | varchar(30) | NO   |     | NULL    |       |
+| Address  | varchar(50) | NO   |     | NULL    |       |
+| Internal | char(1)     | NO   |     | NULL    |       |
+| Contact  | varchar(35) | NO   |     | NULL    |       |
+| Phone    | varchar(11) | NO   |     | NULL    |       |
+| City     | varchar(30) | NO   |     | NULL    |       |
+| State    | varchar(2)  | NO   |     | NULL    |       |
+| Zip      | varchar(10) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+// Facility table creation
+CREATE TABLE Facility (FacNo VARCHAR(8) NOT NULL,   FacName VARCHAR(30) NOT NULL,  CONSTRAINT PK_FACILITY PRIMARY KEY (FacNo), CONSTRAINT Unique_FacName UNIQUE(FacName));
+
+desc Facility;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| FacNo   | varchar(8)  | NO   | PRI | NULL    |       |
+| FacName | varchar(30) | NO   | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+// Location table creation
+CREATE TABLE Location (LocNo VARCHAR(8) NOT NULL,   FacNo VARCHAR(8) NOT NULL,   LocName VARCHAR(30) NOT NULL,  CONSTRAINT PK_LOCATION PRIMARY KEY (LocNo),  CONSTRAINT FK_FACNO FOREIGN KEY (FacNo) REFERENCES Facility (FacNo) );
+
+desc Location;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| LocNo   | varchar(8)  | NO   | PRI | NULL    |       |
+| FacNo   | varchar(8)  | NO   | MUL | NULL    |       |
+| LocName | varchar(30) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+// Employee table creation
+create table Employee( EmpNo varchar(8) not null, EmpName varchar(20) not null, Department varchar(20) not null, Email varchar(30) not null, constraint PK_EmpNo primary key(EmpNo));
+
+desc Employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmpNo      | varchar(8)  | NO   | PRI | NULL    |       |
+| EmpName    | varchar(20) | NO   |     | NULL    |       |
+| Department | varchar(20) | NO   |     | NULL    |       |
+| Email      | varchar(30) | NO   |     | NULL    |       |
+| Phone      | varchar(10) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+// ResourceTbl creation
+create table ResourceTbl(
+    -> ResNo varchar(8) not null,
+    -> ResName varchar(20) not null,
+    -> Rate decimal(10,2) not null,
+    -> constraint PK_ResNo primary key (ResNo),
+    -> check (Rate > 0));
+
+desc ResourceTbl;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ResNo   | varchar(8)    | NO   | PRI | NULL    |       |
+| ResName | varchar(20)   | NO   |     | NULL    |       |
+| Rate    | decimal(10,2) | NO   |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+// EventRequest table creation
+create table EventRequest( EventNo varchar(8) not null, DateHeld date not null, DateReq date not null, FacNo varchar(8) not null, CustNo varchar(8) not null, DateAuth date, Status varchar(10) not null, EstCost decimal(10,2) not null, EstAudience int(10) not null, BudNo varchar(8), constraint PK_EventNo primary key (EventNo), constraint FK_FacNoEventRequest foreign key (FacNo) references Facility (FacNo), constraint FK_CustNoEventRequest foreign key (CustNo) references Customer(CustNo), check ( Status in ('Pending','Approved','Denied') ), check ( EstAudience > 0 ));
+
+desc EventRequest;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| EventNo     | varchar(8)    | NO   | PRI | NULL    |       |
+| DateHeld    | date          | NO   |     | NULL    |       |
+| DateReq     | date          | NO   |     | NULL    |       |
+| FacNo       | varchar(8)    | NO   | MUL | NULL    |       |
+| CustNo      | varchar(8)    | NO   | MUL | NULL    |       |
+| DateAuth    | date          | YES  |     | NULL    |       |
+| Status      | varchar(10)   | NO   |     | NULL    |       |
+| EstCost     | decimal(10,2) | NO   |     | NULL    |       |
+| EstAudience | int(10)       | NO   |     | NULL    |       |
+| BudNo       | varchar(8)    | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+// EventPlan table creation
+create table EventPlan( PlanNo varchar(8) not null, EventNo varchar(8) not null, WordDate date not null, Notes varchar(50), Activity varchar(20) not null, EmpNo varchar(8), constraint PK_PlanNo primary key (PlanNo), constraint FK_EventNoEventPlan foreign key (EventNo) references EventRequest (EventNo), constraint FK_EmpNoEventPlan foreign key (EmpNo) references Employee (EmpNo));
+
+desc EventPlan;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| PlanNo   | varchar(8)  | NO   | PRI | NULL    |       |
+| EventNo  | varchar(8)  | NO   | MUL | NULL    |       |
+| WordDate | date        | NO   |     | NULL    |       |
+| Notes    | varchar(50) | YES  |     | NULL    |       |
+| Activity | varchar(20) | NO   |     | NULL    |       |
+| EmpNo    | varchar(8)  | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+// EventPlanLine table creation
+create table EventPlanLine(
+    -> PlanNo varchar(8) not null,
+    -> LineNo int(10) not null,
+    -> TimeStart datetime not null,
+    -> TimeEnd datetime not null,
+    -> NumberFId int(10) not null,
+    -> LocNo varchar(8) not null,
+    -> ResNo varchar(8) not null,
+    -> constraint PK_PlanNoAndLineNo primary key (PlanNo,LineNo),
+    -> check (TimeStart < TimeEnd),
+    -> constraint PK_LocNoEventPlanLine foreign key (LocNo) references Location (LocNo),
+    -> constraint PK_ResNoEventPlanLine foreign key (ResNo) references ResourceTbl (ResNo));
+
+desc EventPlanLine;
++-----------+------------+------+-----+---------+-------+
+| Field     | Type       | Null | Key | Default | Extra |
++-----------+------------+------+-----+---------+-------+
+| PlanNo    | varchar(8) | NO   | PRI | NULL    |       |
+| LineNo    | int(10)    | NO   | PRI | NULL    |       |
+| TimeStart | datetime   | NO   |     | NULL    |       |
+| TimeEnd   | datetime   | NO   |     | NULL    |       |
+| NumberFId | int(10)    | NO   |     | NULL    |       |
+| LocNo     | varchar(8) | NO   | MUL | NULL    |       |
+| ResNo     | varchar(8) | NO   | MUL | NULL    |       |
++-----------+------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+
+
