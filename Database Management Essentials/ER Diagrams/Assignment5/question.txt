@@ -1,0 +1,8 @@
+Design a database schema for a hotel booking agency using the E-R model and design tables accordingly using the relationship model. The necessary information is given below :
+
+Entities : Hotel, Customer
+Customer can be first time user or loyal customer.
+Customer can book from only only hotel at a time. A hotel can have many customers.
+
+Assume columns accordingly and mention primary keys, weak and strong entities.
+
